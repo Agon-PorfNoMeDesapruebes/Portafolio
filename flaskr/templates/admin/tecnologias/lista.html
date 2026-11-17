@@ -1,0 +1,27 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+  <h1>Tecnologías</h1>
+  <p><a href="{{ url_for('admin.tecnologias_nueva') }}">Nueva tecnología</a></p>
+  <table>
+    <tr><th>Nombre</th><th>Nivel</th><th>Ícono</th><th>Proyectos</th><th>Acciones</th></tr>
+    {% for t in tecnologias %}
+      <tr>
+        <td>{{ t.nombre }}</td>
+        <td>{{ t.nivel }}/5</td>
+        <td>{{ t.icono or "-" }}</td>
+        <td>{{ t.proyectos|length }}</td>
+        <td>
+          <a href="{{ url_for('admin.tecnologias_editar', id=t.id) }}">Editar</a>
+          <form method="post" action="{{ url_for('admin.tecnologias_borrar', id=t.id) }}"
+                style="display:inline"
+                onsubmit="return confirm('¿Borrar esta tecnología? Se quitará de los proyectos que la usan.')">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit">Borrar</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">Todavía no hay tecnologías.</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}

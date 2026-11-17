@@ -1,0 +1,50 @@
+<section id="contacto">
+  <div class="contenedor">
+    <h2 class="titulo-seccion reveal">Contacto</h2>
+    <p class="subtitulo-seccion reveal">¿Tenés una idea o una propuesta? Escribime.</p>
+
+    <div class="contacto-grilla">
+      <div class="reveal">
+        {% for aviso in get_flashed_messages() %}
+          <p class="aviso">{{ aviso }}</p>
+        {% endfor %}
+
+        <form class="formulario" method="post" action="{{ url_for('public.index', _anchor='contacto') }}">
+          {{ form.hidden_tag() }}
+
+          <div class="campo">
+            {{ form.nombre.label }}
+            {{ form.nombre(placeholder="Tu nombre") }}
+            {% for e in form.nombre.errors %}<small class="error">{{ e }}</small>{% endfor %}
+          </div>
+
+          <div class="campo">
+            {{ form.email.label }}
+            {{ form.email(placeholder="tu@email.com") }}
+            {% for e in form.email.errors %}<small class="error">{{ e }}</small>{% endfor %}
+          </div>
+
+          <div class="campo">
+            {{ form.texto.label }}
+            {{ form.texto(placeholder="Contame en qué te puedo ayudar") }}
+            {% for e in form.texto.errors %}<small class="error">{{ e }}</small>{% endfor %}
+          </div>
+
+          <button class="btn btn-primario" type="submit">
+            <i class="fa-solid fa-paper-plane"></i> Enviar mensaje
+          </button>
+        </form>
+      </div>
+
+      <!-- IFRAME: mapa de Google Maps incrustado. Cambiá lo que sigue a "q=" por tu ciudad o dirección -->
+      <div class="mapa reveal">
+        <iframe
+          title="Mapa de ubicación"
+          src="https://www.google.com/maps?q=Cofico,+X5000+Córdoba,+Argentina&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>

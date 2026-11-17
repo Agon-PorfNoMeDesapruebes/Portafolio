@@ -1,0 +1,14 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+  <h1>{{ titulo }}</h1>
+  <form method="post">
+    {{ form.hidden_tag() }}
+    <p>{{ form.nombre.label }} {{ form.nombre() }}</p>
+    {% for e in form.nombre.errors %}<small>{{ e }}</small>{% endfor %}
+    <p>{{ form.icono.label }} {{ form.icono() }}</p>
+    {% for e in form.icono.errors %}<small>{{ e }}</small>{% endfor %}
+    <p>{{ form.nivel.label }} {{ form.nivel() }}</p>
+    {% for e in form.nivel.errors %}<small>{{ e }}</small>{% endfor %}
+    <p>{{ form.submit() }} <a href="{{ url_for('admin.tecnologias_lista') }}">Cancelar</a></p>
+  </form>
+{% endblock %}

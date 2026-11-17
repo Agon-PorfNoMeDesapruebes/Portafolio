@@ -1,0 +1,24 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+  <h1>Categorías</h1>
+  <p><a href="{{ url_for('admin.categorias_nueva') }}">Nueva categoría</a></p>
+  <table>
+    <tr><th>Nombre</th><th>Proyectos</th><th>Acciones</th></tr>
+    {% for c in categorias %}
+      <tr>
+        <td>{{ c.nombre }}</td>
+        <td>{{ c.proyectos|length }}</td>
+        <td>
+          <a href="{{ url_for('admin.categorias_editar', id=c.id) }}">Editar</a>
+          <form method="post" action="{{ url_for('admin.categorias_borrar', id=c.id) }}"
+                style="display:inline" onsubmit="return confirm('¿Borrar esta categoría?')">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit">Borrar</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="3">Todavía no hay categorías.</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}

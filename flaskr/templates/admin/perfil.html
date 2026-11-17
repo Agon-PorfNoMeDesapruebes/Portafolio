@@ -1,0 +1,40 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+  <h1>Mi perfil</h1>
+  <form method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <p>{{ form.nombre.label }} {{ form.nombre() }}</p>
+    {% for e in form.nombre.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.titular.label }} {{ form.titular() }}</p>
+    {% for e in form.titular.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.bio.label }} {{ form.bio() }}</p>
+    {% for e in form.bio.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.foto_archivo.label }}</p>
+    {% if perfil.foto %}
+      <p>
+        <img src="{{ url_for('static', filename='uploads/' ~ perfil.foto) }}"
+             alt="Foto actual" width="120"><br>
+        <small>Foto actual. Si subís otra, la reemplaza.</small>
+      </p>
+    {% endif %}
+    {{ form.foto_archivo() }}
+    {% for e in form.foto_archivo.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.cv_archivo.label }}</p>
+    {% if perfil.ruta_cv %}
+      <p>
+        <a href="{{ url_for('static', filename='uploads/' ~ perfil.ruta_cv) }}"
+           target="_blank" rel="noopener noreferrer">Ver CV actual</a><br>
+        <small>Si subís otro, lo reemplaza.</small>
+      </p>
+    {% endif %}
+    {{ form.cv_archivo() }}
+    {% for e in form.cv_archivo.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.submit() }}</p>
+  </form>
+{% endblock %}

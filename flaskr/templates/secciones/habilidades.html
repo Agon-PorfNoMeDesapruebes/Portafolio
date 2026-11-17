@@ -1,0 +1,21 @@
+<section id="habilidades">
+  <div class="contenedor">
+    <h2 class="titulo-seccion reveal">Habilidades</h2>
+    <p class="subtitulo-seccion reveal">Tecnologías que uso y qué tan cómodo me siento con cada una.</p>
+
+    <div class="habilidades">
+      {% for tec in tecnologias %}
+        <div class="habilidad reveal" style="--nivel: {{ tec.nivel * 20 }}%">
+          <div class="habilidad-cabecera">
+            {% if tec.icono %}<i class="{{ tec.icono }}"></i>{% endif %}
+            <span>{{ tec.nombre }}</span>
+            <span class="habilidad-nivel">{{ tec.nivel }}/5</span>
+          </div>
+          <div class="barra" role="img" aria-label="Nivel {{ tec.nivel }} de 5"><span></span></div>
+        </div>
+      {% else %}
+        <p class="vacio">Todavía no hay habilidades cargadas.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

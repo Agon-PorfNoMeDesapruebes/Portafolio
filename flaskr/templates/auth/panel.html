@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Panel</title>
+</head>
+<body>
+  <h1>Panel provisional</h1>
+  <p>Sesión iniciada como {{ g.usuario.username }}.</p>
+  <form method="post" action="{{ url_for('auth.logout') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit">Cerrar sesión</button>
+  </form>
+</body>
+</html>

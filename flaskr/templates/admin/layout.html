@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Administración{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='logo.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('admin.index') }}">Inicio</a>
+    <a href="{{ url_for('admin.proyectos_lista') }}">Proyectos</a>
+    <a href="{{ url_for('admin.categorias_lista') }}">Categorías</a>
+    <a href="{{ url_for('admin.tecnologias_lista') }}">Tecnologías</a>
+    <a href="{{ url_for('admin.mensajes_lista') }}">Mensajes</a>
+    <a href="{{ url_for('admin.perfil_editar') }}">Perfil</a>
+    <a href="{{ url_for('public.index') }}">Ver sitio</a>
+    <form method="post" action="{{ url_for('auth.logout') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button type="submit">Cerrar sesión ({{ g.usuario.username }})</button>
+    </form>
+  </nav>
+
+  <main>
+    {% for aviso in get_flashed_messages() %}
+      <p class="aviso">{{ aviso }}</p>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

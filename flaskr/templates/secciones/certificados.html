@@ -1,0 +1,14 @@
+<section id="certificados">
+  <div class="contenedor">
+    <h2 class="titulo-seccion reveal">Certificados</h2>
+    <p class="subtitulo-seccion reveal">Formación y cursos que fui completando.</p>
+
+    <div class="grilla">
+      {% for t in certificados %}
+        {% include "secciones/_tarjeta.html" %}
+      {% else %}
+        <p class="vacio">Todavía no hay certificados cargados.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

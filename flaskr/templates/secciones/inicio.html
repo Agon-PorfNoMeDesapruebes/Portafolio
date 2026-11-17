@@ -1,0 +1,35 @@
+<section id="inicio" class="hero">
+  <div class="contenedor">
+    <div class="hero-texto">
+      {% if perfil %}
+        <p class="saludo">Hola, soy</p>
+        <h1 class="texto-degradado">{{ perfil.nombre }}</h1>
+        {% if perfil.titular %}<p class="titular">{{ perfil.titular }}</p>{% endif %}
+        {% if perfil.bio %}<p class="bio">{{ perfil.bio }}</p>{% endif %}
+        <div class="botones">
+          <a class="btn btn-primario" href="#proyectos">
+            <i class="fa-solid fa-rocket"></i> Ver proyectos
+          </a>
+          {% if perfil.ruta_cv %}
+            <a class="btn btn-borde" href="{{ url_for('static', filename='uploads/' ~ perfil.ruta_cv) }}" download="CV.pdf">
+              <i class="fa-solid fa-download"></i> Descargar CV
+            </a>
+          {% endif %}
+        </div>
+      {% else %}
+        <h1 class="texto-degradado">Portafolio</h1>
+        <p class="bio">Todavía no se cargó el perfil.</p>
+      {% endif %}
+    </div>
+
+    <div class="hero-foto">
+      <div class="avatar">
+        {% if perfil and perfil.foto %}
+          <img src="{{ url_for('static', filename='uploads/' ~ perfil.foto) }}" alt="Foto de {{ perfil.nombre }}">
+        {% else %}
+          <div class="avatar-inicial">{{ perfil.nombre[0] if perfil else "P" }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

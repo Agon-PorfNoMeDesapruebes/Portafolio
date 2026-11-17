@@ -1,0 +1,26 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+  <h1>Mensajes</h1>
+  <table>
+    <tr><th>Fecha</th><th>De</th><th>Email</th><th>Estado</th><th>Acciones</th></tr>
+    {% for m in mensajes %}
+      <tr>
+        <td>{{ m.fecha.strftime("%d/%m/%Y %H:%M") }}</td>
+        <td>{% if not m.leido %}<strong>{{ m.nombre }}</strong>{% else %}{{ m.nombre }}{% endif %}</td>
+        <td>{{ m.email }}</td>
+        <td>{{ "Leído" if m.leido else "Sin leer" }}</td>
+        <td>
+          <a href="{{ url_for('admin.mensajes_detalle', id=m.id) }}">Abrir</a>
+          <form method="post" action="{{ url_for('admin.mensajes_borrar', id=m.id) }}"
+                style="display:inline"
+                onsubmit="return confirm('¿Borrar este mensaje?')">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit">Borrar</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">Todavía no llegó ningún mensaje.</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}

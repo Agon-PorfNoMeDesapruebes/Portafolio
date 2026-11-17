@@ -1,0 +1,31 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+  <h1>Proyectos</h1>
+  <p><a href="{{ url_for('admin.proyectos_nuevo') }}">Nuevo proyecto</a></p>
+  <table>
+    <tr>
+      <th>Título</th><th>Categoría</th><th>Fecha</th>
+      <th>Visible</th><th>Destacado</th><th>Acciones</th>
+    </tr>
+    {% for p in proyectos %}
+      <tr>
+        <td>{{ p.titulo }}</td>
+        <td>{{ p.categoria.nombre }}</td>
+        <td>{{ p.fecha.strftime("%d/%m/%Y") }}</td>
+        <td>{{ "Sí" if p.visible else "No" }}</td>
+        <td>{{ "Sí" if p.destacado else "No" }}</td>
+        <td>
+          <a href="{{ url_for('admin.proyectos_editar', id=p.id) }}">Editar</a>
+          <form method="post" action="{{ url_for('admin.proyectos_borrar', id=p.id) }}"
+                style="display:inline"
+                onsubmit="return confirm('¿Borrar este proyecto? No se puede deshacer.')">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit">Borrar</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="6">Todavía no hay proyectos.</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}

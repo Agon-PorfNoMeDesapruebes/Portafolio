@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ingresar</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='logo.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body class="login">
+  <main class="login-caja">
+    <h1>Ingresar</h1>
+
+    {% for mensaje in get_flashed_messages() %}
+      <p class="aviso">{{ mensaje }}</p>
+    {% endfor %}
+
+    <form method="post">
+      {{ form.hidden_tag() }}
+
+      <div class="campo">
+        {{ form.username.label }}
+        {{ form.username() }}
+        {% for e in form.username.errors %}<small>{{ e }}</small>{% endfor %}
+      </div>
+
+      <div class="campo">
+        {{ form.password.label }}
+        {{ form.password() }}
+        {% for e in form.password.errors %}<small>{{ e }}</small>{% endfor %}
+      </div>
+
+      {{ form.submit(class_="btn") }}
+    </form>
+  </main>
+</body>
+</html>

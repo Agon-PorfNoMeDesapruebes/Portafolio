@@ -1,0 +1,48 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+  <h1>{{ titulo }}</h1>
+  <form method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <p>{{ form.titulo.label }} {{ form.titulo() }}</p>
+    {% for e in form.titulo.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.descripcion_corta.label }} {{ form.descripcion_corta() }}</p>
+    {% for e in form.descripcion_corta.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.descripcion_larga.label }} {{ form.descripcion_larga() }}</p>
+    {% for e in form.descripcion_larga.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.fecha.label }} {{ form.fecha() }}</p>
+    {% for e in form.fecha.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.categoria_id.label }} {{ form.categoria_id() }}</p>
+    {% for e in form.categoria_id.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.url_repo.label }} {{ form.url_repo() }}</p>
+    {% for e in form.url_repo.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.url_demo.label }} {{ form.url_demo() }}</p>
+    {% for e in form.url_demo.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.tecnologias_ids.label }}</p>
+    {{ form.tecnologias_ids() }}
+    {% for e in form.tecnologias_ids.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.portada_archivo.label }}</p>
+    {% if proyecto and proyecto.portada %}
+      <p>
+        <img src="{{ url_for('static', filename='uploads/' ~ proyecto.portada) }}"
+             alt="Portada actual" width="150"><br>
+        <small>Portada actual. Si subís otra, la reemplaza.</small>
+      </p>
+    {% endif %}
+    {{ form.portada_archivo() }}
+    {% for e in form.portada_archivo.errors %}<small>{{ e }}</small>{% endfor %}
+
+    <p>{{ form.destacado() }} {{ form.destacado.label }}</p>
+    <p>{{ form.visible() }} {{ form.visible.label }}</p>
+
+    <p>{{ form.submit() }} <a href="{{ url_for('admin.proyectos_lista') }}">Cancelar</a></p>
+  </form>
+{% endblock %}

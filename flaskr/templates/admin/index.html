@@ -1,0 +1,10 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+  <h1>Panel de administración</h1>
+  <ul>
+    <li>Categorías: {{ total_categorias }}</li>
+    <li>Proyectos: {{ total_proyectos }}</li>
+    <li>Mensajes sin leer: {{ sin_leer }}</li>
+    <li>Tecnologías: {{ total_tecnologias }}</li>
+  </ul>
+{% endblock %}

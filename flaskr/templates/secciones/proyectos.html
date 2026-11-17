@@ -1,0 +1,14 @@
+<section id="proyectos">
+  <div class="contenedor">
+    <h2 class="titulo-seccion reveal">Proyectos</h2>
+    <p class="subtitulo-seccion reveal">Cosas que construí, con su código y su demo.</p>
+
+    <div class="grilla">
+      {% for t in proyectos %}
+        {% include "secciones/_tarjeta.html" %}
+      {% else %}
+        <p class="vacio">Todavía no hay proyectos cargados.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

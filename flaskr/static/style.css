@@ -1,0 +1,741 @@
+/* ==========================================================================
+   style.css - Portafolio (sitio público)
+   Enfoque "mobile first": los estilos base son para celular y luego se
+   agregan reglas con @media (min-width: ...) para tablet y escritorio.
+
+   Índice
+   1. Variables (colores, fuentes)
+   2. Base
+   3. Cabecera y menú
+   4. Portada (hero)
+   5. Secciones, grillas y tarjetas
+   6. Habilidades
+   7. Contacto
+   8. Pie
+   9. Animaciones  <-- (esto es lo que hay que indicar en la documentación)
+   10. Responsive (tablet y escritorio)
+   ========================================================================== */
+
+/* 1. VARIABLES ----------------------------------------------------------- */
+:root {
+  --fondo: #0d0e1f;
+  --superficie: #16182f;
+  --superficie-2: #1f2245;
+  --borde: rgba(255, 255, 255, 0.09);
+  --texto: #eceaf7;
+  --texto-suave: #a9a7c9;
+  --violeta: #8b5cf6;
+  --cian: #22d3ee;
+  --rosa: #f472b6;
+  --degradado: linear-gradient(135deg, var(--violeta), var(--cian));
+  --radio: 16px;
+  --sombra: 0 14px 34px rgba(0, 0, 0, 0.4);
+  --fuente-titulos: "Space Grotesk", system-ui, sans-serif;
+  --fuente-texto: "Inter", system-ui, sans-serif;
+}
+
+/* 2. BASE ---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* el padding no agranda las cajas */
+}
+
+html {
+  scroll-behavior: smooth;   /* los enlaces #seccion se deslizan */
+  scroll-padding-top: 76px;  /* para que la cabecera fija no tape el título */
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente-texto);
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--cian);
+}
+
+h1, h2, h3 {
+  font-family: var(--fuente-titulos);
+  line-height: 1.15;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* 3. CABECERA Y MENÚ ----------------------------------------------------- */
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1.25rem;
+  background: rgba(13, 14, 31, 0.78);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--borde);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--texto);
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+.menu-boton {
+  background: none;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  color: var(--texto);
+  font-size: 1.1rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+/* En celular el menú está oculto y se despliega debajo de la cabecera */
+.menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.25rem;
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borde);
+}
+
+.cabecera.abierto .menu {
+  display: flex;
+}
+
+.menu a {
+  color: var(--texto-suave);
+  text-decoration: none;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.menu a:hover {
+  color: var(--texto);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* 4. PORTADA (HERO) ------------------------------------------------------ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 62px);
+  padding: 3rem 1.25rem;
+}
+
+/* Dos manchas de color desenfocadas detrás del contenido (se mueven: ver animaciones) */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.hero::before {
+  width: 340px;
+  height: 340px;
+  background: var(--violeta);
+  top: -90px;
+  left: -90px;
+}
+
+.hero::after {
+  width: 300px;
+  height: 300px;
+  background: var(--cian);
+  bottom: -70px;
+  right: -70px;
+}
+
+.hero .contenedor {
+  position: relative;
+  z-index: 1; /* por encima de las manchas */
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-foto {
+  grid-row: 1; /* en celular la foto va arriba del texto */
+  justify-self: center;
+}
+
+.saludo {
+  margin: 0;
+  color: var(--texto-suave);
+  font-size: 1.1rem;
+}
+
+.hero h1 {
+  margin: 0.2rem 0 0.4rem;
+  font-size: clamp(2.3rem, 8vw, 4.2rem); /* crece con el ancho de pantalla */
+}
+
+.texto-degradado {
+  background: var(--degradado);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.titular {
+  margin: 0 0 1rem;
+  color: var(--cian);
+  font-family: var(--fuente-titulos);
+  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+}
+
+.bio {
+  max-width: 56ch;
+  margin: 0 auto 1.8rem;
+  color: var(--texto-suave);
+  white-space: pre-line; /* respeta los saltos de línea que escribas en el admin */
+}
+
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn-primario {
+  background: var(--degradado);
+  color: #fff;
+}
+
+.btn-primario:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(139, 92, 246, 0.5);
+}
+
+.btn-borde {
+  border-color: var(--borde);
+  color: var(--texto);
+}
+
+.btn-borde:hover {
+  border-color: var(--cian);
+  color: var(--cian);
+  transform: translateY(-3px);
+}
+
+/* Foto redonda con un aro de colores que gira */
+.avatar {
+  position: relative;
+  width: clamp(170px, 48vw, 270px);
+  aspect-ratio: 1;
+}
+
+.avatar::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  background: conic-gradient(var(--violeta), var(--cian), var(--rosa), var(--violeta));
+}
+
+.avatar img,
+.avatar-inicial {
+  position: relative; /* queda por encima del aro */
+  width: 100%;
+  height: 100%;
+  border: 6px solid var(--fondo);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-inicial {
+  display: grid;
+  place-items: center;
+  background: var(--superficie-2);
+  font-family: var(--fuente-titulos);
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+/* 5. SECCIONES, GRILLAS Y TARJETAS --------------------------------------- */
+section {
+  padding: 4.5rem 1.25rem;
+}
+
+section:nth-of-type(even) {
+  background: rgba(255, 255, 255, 0.02); /* alterna el fondo para separar secciones */
+}
+
+.titulo-seccion {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+}
+
+.titulo-seccion::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 4px;
+  margin-top: 0.7rem;
+  border-radius: 4px;
+  background: var(--degradado);
+}
+
+.subtitulo-seccion {
+  margin: 0 0 2.5rem;
+  color: var(--texto-suave);
+}
+
+.vacio {
+  color: var(--texto-suave);
+}
+
+/* Grilla: 1 columna en celular (se amplía en tablet y escritorio) */
+.grilla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombra);
+  border-color: rgba(139, 92, 246, 0.55);
+}
+
+.tarjeta-media {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--superficie-2);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 2.6rem;
+}
+
+.tarjeta-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.tarjeta:hover .tarjeta-media img {
+  transform: scale(1.07);
+}
+
+/* Si no hay foto, se muestra un degradado según el tipo de tarjeta */
+.tarjeta-proyecto .tarjeta-media--vacio {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.45), rgba(34, 211, 238, 0.3));
+}
+
+.tarjeta-certificado .tarjeta-media--vacio {
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.4), rgba(139, 92, 246, 0.35));
+}
+
+.tarjeta-cuerpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.25rem;
+}
+
+.tarjeta .subtitulo {
+  margin: 0;
+  color: var(--cian);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.tarjeta h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.tarjeta p {
+  margin: 0;
+  color: var(--texto-suave);
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.etiquetas li {
+  padding: 0.2rem 0.7rem;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.18);
+  color: #d4c4ff;
+  font-size: 0.78rem;
+}
+
+.tarjeta-enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: auto; /* los enlaces siempre quedan al pie de la tarjeta */
+  padding-top: 0.7rem;
+}
+
+.enlace-chico {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  color: var(--texto);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.enlace-chico:hover {
+  border-color: var(--cian);
+  color: var(--cian);
+  background: rgba(34, 211, 238, 0.08);
+}
+
+/* 6. HABILIDADES --------------------------------------------------------- */
+.habilidades {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.habilidad {
+  padding: 1rem 1.2rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+}
+
+.habilidad-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.7rem;
+  font-weight: 600;
+}
+
+.habilidad-cabecera i {
+  color: var(--cian);
+  font-size: 1.4rem;
+}
+
+.habilidad-nivel {
+  margin-left: auto;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.barra {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+/* --nivel lo define la plantilla (nivel x 20 %): 4 de 5 = 80 % */
+.barra span {
+  display: block;
+  width: var(--nivel);
+  height: 100%;
+  border-radius: 8px;
+  background: var(--degradado);
+}
+
+/* 7. CONTACTO ------------------------------------------------------------ */
+.contacto-grilla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+
+.campo label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.formulario input,
+.formulario textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: var(--superficie);
+  color: var(--texto);
+  font: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formulario textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.formulario input:focus,
+.formulario textarea:focus {
+  outline: none;
+  border-color: var(--violeta);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.35);
+}
+
+.error {
+  color: #fda4af;
+  font-size: 0.85rem;
+}
+
+.aviso {
+  margin: 0 0 1.2rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(34, 211, 238, 0.45);
+  border-radius: 12px;
+  background: rgba(34, 211, 238, 0.12);
+  color: #a5f3fc;
+}
+
+.mapa iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: 0;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+
+/* 8. PIE ----------------------------------------------------------------- */
+.pie {
+  padding: 2rem 1.25rem;
+  border-top: 1px solid var(--borde);
+  color: var(--texto-suave);
+  text-align: center;
+}
+
+.pie p {
+  margin: 0.2rem 0;
+}
+
+/* 9. ANIMACIONES ---------------------------------------------------------
+   (1) Aparición al hacer scroll: tarjetas, habilidades y títulos (.reveal)
+   (2) Aro de la foto que gira y manchas de color que flotan (portada)
+   (3) Barras de habilidad que se llenan
+   (4) Transiciones al pasar el mouse: tarjetas, botones y enlaces (arriba)
+   ------------------------------------------------------------------------ */
+
+/* La clase "js" la agrega un script del <head>. Así, si el JavaScript no
+   funciona, el contenido igual se ve (nada queda oculto para siempre). */
+.js .reveal {
+  opacity: 0;
+}
+
+.js .reveal.visible {
+  opacity: 1;
+  animation: aparecer 0.7s ease backwards;
+}
+
+/* Retrasos escalonados: las tarjetas de una misma fila no entran todas juntas */
+.grilla > .reveal:nth-child(3n + 2),
+.habilidades > .reveal:nth-child(even) {
+  animation-delay: 0.1s;
+}
+
+.grilla > .reveal:nth-child(3n + 3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.avatar::before {
+  animation: girar 8s linear infinite;
+}
+
+.hero::before {
+  animation: flotar 12s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  animation: flotar 14s ease-in-out -6s infinite alternate;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes flotar {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(50px, 36px) scale(1.18);
+  }
+}
+
+.js .barra span {
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.25s;
+}
+
+.js .habilidad.visible .barra span {
+  width: var(--nivel);
+}
+
+/* Si la persona pidió "reducir movimiento" en su sistema, se apagan las animaciones */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js .reveal {
+    opacity: 1;
+  }
+
+  .js .barra span {
+    width: var(--nivel);
+  }
+}
+
+/* 10. RESPONSIVE --------------------------------------------------------- */
+
+/* TABLET: desde 768 px */
+@media (min-width: 768px) {
+  .cabecera {
+    padding: 0.8rem 2rem;
+  }
+
+  .menu-boton {
+    display: none; /* ya no hace falta la hamburguesa */
+  }
+
+  .menu {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    gap: 0.2rem;
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  .grilla,
+  .habilidades {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  section {
+    padding: 5.5rem 2rem;
+  }
+}
+
+/* ESCRITORIO: desde 1024 px */
+@media (min-width: 1024px) {
+  .hero .contenedor {
+    grid-template-columns: 1.25fr 0.75fr;
+    text-align: left;
+  }
+
+  .hero-foto {
+    grid-row: auto; /* la foto pasa a la derecha, al lado del texto */
+  }
+
+  .bio {
+    margin-left: 0;
+  }
+
+  .botones {
+    justify-content: flex-start;
+  }
+
+  .grilla {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .contacto-grilla {
+    grid-template-columns: 1fr 1fr;
+  }
+}

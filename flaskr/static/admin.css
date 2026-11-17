@@ -1,0 +1,200 @@
+/* ==========================================================================
+   admin.css - Panel de administración y login (tema claro, simple y legible)
+   ========================================================================== */
+:root {
+  --primario: #6d4aff;
+  --oscuro: #1c1d2e;
+  --fondo: #f4f5fb;
+  --borde: #e3e6f2;
+  --peligro: #e5484d;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--oscuro);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--primario);
+}
+
+/* Barra superior */
+body > nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 1.2rem;
+  padding: 0.8rem 1.25rem;
+  background: var(--oscuro);
+}
+
+body > nav a {
+  color: #e8e6f8;
+  text-decoration: none;
+}
+
+body > nav a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+body > nav form {
+  margin-left: auto;
+}
+
+main {
+  max-width: 1000px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+/* Botones */
+button,
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--primario);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button:hover,
+.btn:hover {
+  filter: brightness(1.1);
+}
+
+/* Los botones de borrar van en rojo */
+form[action$="/borrar"] button {
+  background: var(--peligro);
+}
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(28, 29, 46, 0.07);
+}
+
+th,
+td {
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--borde);
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  background: #eceefa;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Formularios */
+form p,
+.campo {
+  margin: 1rem 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+input:not([type="checkbox"]):not([type="file"]):not([type="hidden"]):not([type="submit"]),
+textarea,
+select {
+  width: 100%;
+  max-width: 560px;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #cfd3e6;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--primario);
+  outline-offset: 1px;
+}
+
+textarea {
+  min-height: 120px;
+}
+
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+/* Casillas (tecnologías): el texto va al lado de la casilla */
+ul label,
+form p label:has(+ input[type="checkbox"]) {
+  display: inline;
+  font-weight: 400;
+}
+
+small,
+.error {
+  display: block;
+  color: var(--peligro);
+}
+
+.aviso {
+  padding: 0.7rem 1rem;
+  border: 1px solid #bcd7ff;
+  border-radius: 8px;
+  background: #e7f1ff;
+}
+
+/* Pantalla de login */
+.login {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 1rem;
+}
+
+.login-caja {
+  width: 100%;
+  max-width: 380px;
+  padding: 2rem;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(28, 29, 46, 0.12);
+}
+
+.login-caja input:not([type="submit"]) {
+  max-width: none;
+}
+
+/* Tablas en pantallas chicas: se pueden deslizar hacia los costados */
+@media (max-width: 700px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}

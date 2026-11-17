@@ -1,0 +1,36 @@
+<article class="tarjeta tarjeta-{{ t.tipo }} reveal">
+  <div class="tarjeta-media{% if not t.imagen %} tarjeta-media--vacio{% endif %}">
+    {% if t.imagen %}
+      <img src="{{ url_for('static', filename='uploads/' ~ t.imagen) }}" alt="{{ t.titulo }}" loading="lazy">
+    {% else %}
+      <i class="fa-solid {{ 'fa-code' if t.tipo == 'proyecto' else 'fa-award' }}"></i>
+    {% endif %}
+  </div>
+
+  <div class="tarjeta-cuerpo">
+    <p class="subtitulo">{{ t.subtitulo }}</p>
+    <h3>{{ t.titulo }}</h3>
+    <p>{{ t.descripcion }}</p>
+
+    {% if t.tecnologias %}
+      <ul class="etiquetas">
+        {% for nombre in t.tecnologias %}<li>{{ nombre }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if t.url_repo or t.url_demo %}
+      <div class="tarjeta-enlaces">
+        {% if t.url_repo %}
+          <a class="enlace-chico" href="{{ t.url_repo }}" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i> Código
+          </a>
+        {% endif %}
+        {% if t.url_demo %}
+          <a class="enlace-chico" href="{{ t.url_demo }}" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Demo
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</article>
